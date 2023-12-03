@@ -13,8 +13,8 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailSender {
 
-    private static final String SENDER_EMAIL = "otpjkost@gmail.com";
-    private static final String SENDER_PASSWORD = "gordoreypusvvpbs";
+    private static final String SENDER_EMAIL = "otpjkost@gmail.com";  // sesuaikan dengan email anda
+    private static final String SENDER_PASSWORD = "gordoreypusvvpbs"; // sesuaikan dengan password abda
     private static final String EMAIL_SUBJECT = "Kode Verifikasi J-Kost";
 
     private static Properties properties;
