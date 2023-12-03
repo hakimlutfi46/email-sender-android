@@ -54,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
                 String email = Objects.requireNonNull(etEmail.getText()).toString();
 
                 if (email.isEmpty()) {
-                    MyToast.showToastWarning(MainActivity.this,"Harap isi field!");
+                    Toast.makeText(MainActivity.this, "Harap isi field!", Toast.LENGTH_SHORT).show();
                 } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    MyToast.showToastWarning(MainActivity.this,"Harap masukkan email yang valid!");
+                    Toast.makeText(MainActivity.this, "Harap masukkan email yang valid", Toast.LENGTH_SHORT).show();
                 } else {
                     sendOTP(email);
                 }
@@ -71,12 +71,12 @@ public class MainActivity extends AppCompatActivity {
                 String otp = Objects.requireNonNull(etOtp.getText()).toString();
 
                 if (otp.isEmpty()){
-                    MyToast.showToastWarning(MainActivity.this, "Harap isi field");
+                    Toast.makeText(MainActivity.this, "Harap isi field!", Toast.LENGTH_SHORT).show();
                 }else {
                     if(otp.equals(generatedOTP)){
-                        MyToast.showToastSuccess(MainActivity.this, "Kode OTP valid");
+                        Toast.makeText(MainActivity.this, "Kode OTP valid", Toast.LENGTH_SHORT).show();
                     }else{
-                        MyToast.showToastError(MainActivity.this, "Kode OTP tidak valid");
+                        Toast.makeText(MainActivity.this, "Kode OTP tidak valid", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -89,6 +89,6 @@ public class MainActivity extends AppCompatActivity {
         OTPGenerator otpGenerator = new OTPGenerator();
         generatedOTP = otpGenerator.generateOTP(5);
         EmailSender.sendEmail(email, generatedOTP);
-        MyToast.showToastSuccess(MainActivity.this, "OTP berhasil dikirim ke email");
+        Toast.makeText(this, "OTP berhasil dikirim ke email", Toast.LENGTH_SHORT).show();
     }
 }

@@ -13,9 +13,9 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailSender {
 
-    private static final String SENDER_EMAIL = "otpjkost@gmail.com";
-    private static final String SENDER_PASSWORD = "gordoreypusvvpbs";
-    private static final String EMAIL_SUBJECT = "Kode Verifikasi J-Kost";
+    private static final String SENDER_EMAIL = "otpjkost@gmail.com"; //change ur email
+    private static final String SENDER_PASSWORD = "gordoreypusvvpbs"; //change ur password
+    private static final String EMAIL_SUBJECT = "Verification Code";
 
     private static Properties properties;
 
@@ -43,36 +43,7 @@ public class EmailSender {
             mimeMessage.setSubject(EMAIL_SUBJECT);
 
             // Masukkan OTP ke dalam pesan email dengan format HTML
-            String emailMessageWithOTP = "<!DOCTYPE html>" +
-                    "<html>" +
-                    "<head>" +
-                    "    <style>" +
-                    "        .verification-box {" +
-                    "            display: inline-block;" +
-                    "            padding: 5px 10px;" +
-                    "            background-color: #3B46F1;" +
-                    "            color: white;" +
-                    "            border-radius: 5px;" +
-                    "            transition: background-color 0.5s ease-in-out;" +
-                    "        }" +
-                    "        .verification-code {" +
-                    "            font-size: 1.2em;" +
-                    "            font-weight: bold;" +
-                    "        }" +
-                    "        .verification-box:hover {" +
-                    "            background-color: #32BA7C;" +
-                    "        }" +
-                    "    </style>" +
-                    "</head>" +
-                    "<body>" +
-                    "    <p>Kepada (Nama penerima),</p>"+
-                    "    <p>Untuk menyelesaikan proses reset password, kami memerlukan verifikasi email Anda dengan memasukkan kode verifikasi berikut:</p>" +
-                    "    <h3>Kode Verifikasi Anda : <span class=\"verification-box\"><span class=\"verification-code\">" + otp + "</span></span></h3>" +
-                    "    <p>Kami mohon untuk tidak memberikan kode verifikasi ini pada orang lain untuk menjaga keamanan akun Anda. Jangan ragu untuk menghubungi kami jika Anda mengalami kesulitan atau memiliki pertanyaan lebih lanjut.</p>" +
-                    "    <p>Terima kasih atas perhatiannya.</p>" +
-                    "    <p>Hormat Kami, J-Kost</p>" +
-                    "</body>" +
-                    "</html>";
+            String emailMessageWithOTP ="Your verificatioin code : "+otp;
 
             mimeMessage.setContent(emailMessageWithOTP, "text/html");
 
