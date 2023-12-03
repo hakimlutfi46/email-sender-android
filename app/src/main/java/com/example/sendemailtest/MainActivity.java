@@ -2,6 +2,8 @@ package com.example.sendemailtest;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +11,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -23,81 +31,64 @@ import javax.mail.internet.MimeMessage;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText email;
-    Button btnSend;
+    EditText etEmail, etOtp;
+    Button btnSend, btnOtpConfirm;
+    String generatedOTP;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        email = findViewById(R.id.etEmail);
-        btnSend = findViewById(R.id.btnSendEmail);
-
+        etEmail = findViewById(R.id.tvEmail);
+        btnSend = findViewById(R.id.confirmBtn);
+        etOtp = findViewById(R.id.tvOtp);
+        btnOtpConfirm = findViewById(R.id.confirmOtp);
 
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String emailVal = email.getText().toString();
-                try {
-                String stringSenderEmail = "otpstayclean@gmail.com";
-                String stringReciveEmail = emailVal;
-                String stringPasswordSender = "fefybsmxlxeefimy";
 
-                String stringHost = "smtp.gmail.com";
+                String email = Objects.requireNonNull(etEmail.getText()).toString();
 
-                    Properties properties = System.getProperties();
-                    properties.put("mail.smtp.host", stringHost);
-                    properties.put("mail.smtp.port", "587");
-                    properties.put("mail.smtp.starttls.enable", "true");
-                    properties.put("mail.smtp.auth", "true");
-
-                javax.mail.Session session = Session.getInstance(properties, new Authenticator() {
-                    @Override
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(stringSenderEmail, stringPasswordSender);
-                    }
-                });
-                MimeMessage mimeMessage = new MimeMessage(session);
-
-
-                    mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(stringReciveEmail));
-
-                    mimeMessage.setSubject("Subject: Android App email");
-                    mimeMessage.setText("Hello Programmer, \n\n Programer World has sent yout this email \n\n");
-
-                    Thread thread = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                Transport.send(mimeMessage);
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(MainActivity.this, "Email sent successfully", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            } catch (MessagingException e) {
-                                e.printStackTrace();
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(MainActivity.this, "Failed to send email", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            }
-                        }
-                    });
-                    thread.start();
-
-                } catch (AddressException e) {
-                    e.printStackTrace();
-                } catch (MessagingException e) {
-                    e.printStackTrace();
+                if (email.isEmpty()) {
+                    MyToast.showToastWarning(MainActivity.this,"Harap isi field!");
+                } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    MyToast.showToastWarning(MainActivity.this,"Harap masukkan email yang valid!");
+                } else {
+                    sendOTP(email);
                 }
+
             }
         });
 
+        btnOtpConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String otp = Objects.requireNonNull(etOtp.getText()).toString();
+
+                if (otp.isEmpty()){
+                    MyToast.showToastWarning(MainActivity.this, "Harap isi field");
+                }else {
+                    if(otp.equals(generatedOTP)){
+                        MyToast.showToastSuccess(MainActivity.this, "Kode OTP valid");
+                    }else{
+                        MyToast.showToastError(MainActivity.this, "Kode OTP tidak valid");
+                    }
+                }
+
+            }
+        });
+
+    }
+
+    private void sendOTP(String email){
+        OTPGenerator otpGenerator = new OTPGenerator();
+        generatedOTP = otpGenerator.generateOTP(5);
+        EmailSender.sendEmail(email, generatedOTP);
+        MyToast.showToastSuccess(MainActivity.this, "OTP berhasil dikirim ke email");
     }
 }

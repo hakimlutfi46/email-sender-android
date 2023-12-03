@@ -4,33 +4,107 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginHorizontal="20dp"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:gravity="center"
+        android:layout_marginHorizontal="5dp"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/etEmail"
-            android:layout_marginHorizontal="20dp"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Masukkan Email"
-            android:inputType="textEmailAddress"
-            />
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Silahkan Masukkan Email"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Email yang dikirimkan akan menghasilkan OTP random yang di dapatkan dari random num" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            android:layout_marginTop="30dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="Masukkan email anda"
+                android:inputType="textEmailAddress"
+                android:paddingHorizontal="10dp"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            android:layout_marginTop="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvOtp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="Masukkan kode otp yang diterima"
+                android:inputType="number"
+                android:paddingHorizontal="10dp"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true">
 
         <Button
-            android:id="@+id/btnSendEmail"
+            android:id="@+id/confirmBtn"
             android:layout_width="match_parent"
-            android:layout_marginHorizontal="20dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:text="Kirim Email"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_custom"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/confirmOtp"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Konfirmasi OTP"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_custom"
+            android:textAllCaps="false"
             />
 
     </LinearLayout>
+
+
 
 
 
